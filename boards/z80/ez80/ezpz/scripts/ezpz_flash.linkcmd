@@ -43,8 +43,8 @@ _SYS_CLK_SRC = 0;
 _SYS_CLK_FREQ = 50000000;
 _OSC_FREQ_MULT = 10;
 
-__CS0_LBR_INIT_PARAM = 0x04;
-__CS0_UBR_INIT_PARAM = 0x0b;
+__CS0_LBR_INIT_PARAM = ORIGIN(sram) >> 16;
+__CS0_UBR_INIT_PARAM = (ORIGIN(sram) + LENGTH(sram)) >> 16;
 __CS0_CTL_INIT_PARAM = 0x08;
 __CS0_BMC_INIT_PARAM = 0x00;
 __CS1_LBR_INIT_PARAM = 0x00;
@@ -79,18 +79,22 @@ SECTIONS {
     __copy_code_to_ram = 0;
 
     .data : {
+        __low_data = .;
         KEEP(*(.ivects))
         *(.data .data.*)
+        __high_data = .;
     } > sram AT > flash
     __low_romdata = LOADADDR(.data);
-    __low_data = ADDR(.data);
     __len_data = SIZEOF(.data);
 
     .bss : {
+        __low_bss = .;
         *(.bss .bss.*)
+        __high_bss = .;
     } > sram
-    __low_bss = ADDR(.bss);
     __len_bss = SIZEOF(.bss);
+    __heapbot = __high_bss;
+    __stack = ORIGIN(sram) + LENGTH(sram);
 
     /DISCARD/ : {
         *(.comment)

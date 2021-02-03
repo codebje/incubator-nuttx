@@ -50,9 +50,10 @@ endif
 
 ARCHSTDINCLUDES = -I/Users/bje/Projects/ezpz/stdlib/include
 
-ARCHCPUFLAGS = 
+ARCHCPUFLAGS = -nostdinc -Dinterrupt="__attribute__((__interrupt__))"
 ARCHLIST = 
 ARCHWARNINGS = -Wall -Wextra -Wno-incompatible-library-redeclaration
+ARCHWARNINGS += -Wno-main-return-type -Wno-unused-parameter
 ARCHDEFINES = -D$(ARCHCPUDEF) -D"$(ARCHFAMILY)"
 ARCHINCLUDES = $(ARCHSTDINCLUDES)
 
@@ -64,6 +65,7 @@ CPP = $(CC) -E -P -x c
 LD = $(CROSSDEV)ld
 AS = $(CROSSDEV)as
 AR = $(CROSSDEV)ar -r
+OBJCOPY= $(CROSSDEV)objcopy
 
 # File extensions
 
