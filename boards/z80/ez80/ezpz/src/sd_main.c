@@ -60,7 +60,7 @@
 #define MMCSD_HEXFILE    "/mnt/sdcard/nuttx.hex"
 
 #define SRAM_START       0x040000
-#define SRAM_SIZE        0x100000
+#define SRAM_SIZE        0x080000
 #define SRAM_END         (SRAM_START + SRAM_SIZE)
 
 #define SRAM_RESET       SRAM_START
