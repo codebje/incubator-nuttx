@@ -62,7 +62,7 @@ _up_irq_save:
 
 _up_irq_restore:
 	di						; Assume disabled
-	pop		hl				; HL = return address
+	push		hl				; HL = saved flags
 	pop		af				; AF Parity bit holds interrupt state
 	jp		po, _disabled	; Skip over re-enable if Parity odd
 	ei						; Re-enable interrupts
