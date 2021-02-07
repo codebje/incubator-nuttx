@@ -61,15 +61,15 @@ _up_irq_save:
 ;**************************************************************************
 
 _up_irq_restore:
-	di						; Assume disabled
-	push		hl				; HL = saved flags
-	pop		af				; AF Parity bit holds interrupt state
-	jp		po, _disabled	; Skip over re-enable if Parity odd
-	ei						; Re-enable interrupts
+	di					; Assume disabled
+	pop	hl				; return address
+	pop	af				; AF Parity bit holds interrupt state
+	jp	po, _disabled			; Skip over re-enable if Parity odd
+	ei					; Re-enable interrupts
 _disabled:
 	push	af				; Restore stack
-	push	hl				;
-	ret						; and return
+	push	hl				; return address
+	ret					; and return
 
 ;**************************************************************************
 ;* Name: irqstate_t up_irq_enable(void)
