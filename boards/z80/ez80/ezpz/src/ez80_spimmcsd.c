@@ -92,6 +92,28 @@ int ez80_mmcsd_initialize(void)
       return -ENODEV;
     }
 
+  /* The MMC/SD block driver will try to get an 0xFF response out of the SD
+   * card before initializing it. This will fail - the ezpz doesn't have a
+   * pull-up resistor on MISO. Therefore, we put the card into SPI mode here
+   * before letting the MMC/SD driver do the full initialization routine.
+   *
+   * It's okay if this doesn't actually have any effect. */
+  for (int i = 0; i < 10; i++)
+    {
+      spi->ops->send(spi, 0xff);
+    }
+  spi->ops->select(spi, SPIDEV_MMCSD(0), true);
+  spi->ops->send(spi, 0x40);
+  spi->ops->send(spi, 0x0);
+  spi->ops->send(spi, 0x0);
+  spi->ops->send(spi, 0x0);
+  spi->ops->send(spi, 0x0);
+  spi->ops->send(spi, 0x95);
+  spi->ops->send(spi, 0xff);
+  spi->ops->send(spi, 0xff);
+  spi->ops->send(spi, 0xff);
+  spi->ops->select(spi, SPIDEV_MMCSD(0), false);
+
   /* Register the MMC/SD block driver for slot 0 with device minor number 0. */
 
   ret = mmcsd_spislotinitialize(0, 0, spi);
