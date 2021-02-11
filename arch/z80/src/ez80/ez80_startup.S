@@ -87,7 +87,8 @@ _ez80_startup:
 	
 	; ELF objects can't shift external references
 	;ld		sp, __RAM_ADDR_U_INIT_PARAM << 16 + $00e400
-	.db		$31, $00, $e4, __RAM_ADDR_U_INIT_PARAM
+	;.db		$31, $00, $e4, __RAM_ADDR_U_INIT_PARAM
+	ld		sp, _ez80_idlethread_stack
 
 	; Perform chip-specific initialization
 
@@ -161,3 +162,14 @@ _ez80_codedone:
 _ez80_halt:
 	halt						; We should never get here
 	jp		_ez80_halt
+
+;**************************************************************************
+; Idle thread stack
+;**************************************************************************
+
+	.section .idlestack,"aw",@progbits
+
+	; REVISIT:  CONFIG_IDLETHREAD_STACKSIZE is not used!
+	ds	1024
+_ez80_idlethread_stack:		; refer to the _end_ of the stack
+	end
