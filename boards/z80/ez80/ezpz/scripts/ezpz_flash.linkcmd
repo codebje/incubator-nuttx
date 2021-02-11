@@ -37,6 +37,7 @@
 MEMORY {
     flash (rx) : ORIGIN = 0x000000, LENGTH = 256K
     sram (rwx) : ORIGIN = 0x040000, LENGTH = 512K
+    cram (rwx) : ORIGIN = 0xffe000, LENGTH = 8K
 }
 
 _SYS_CLK_SRC = 0;
@@ -80,7 +81,6 @@ SECTIONS {
 
     .data : {
         __low_data = .;
-        KEEP(*(.ivects))
         *(.data .data.*)
         __high_data = .;
     } > sram AT > flash
@@ -95,6 +95,11 @@ SECTIONS {
     __len_bss = SIZEOF(.bss);
     __heapbot = __high_bss;
     __stack = ORIGIN(sram) + LENGTH(sram);
+
+    .ivects (NOLOAD) : {
+        KEEP(*(.idlestack))
+        KEEP(*(.ivects))
+    } > cram
 
     /DISCARD/ : {
         *(.comment)
