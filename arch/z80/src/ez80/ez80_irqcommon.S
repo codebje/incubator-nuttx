@@ -63,7 +63,7 @@ _ez80_irq_common:
 	; IRQ number is in A
 
 	push	hl					; Offset 6: HL
-	ld	hl, (3*3)				;    HL is the value of the stack pointer before
+	ld	hl, 3*3					;    HL is the value of the stack pointer before
 	add	hl, sp					;    the interrupt occurred (3 for PC, AF, HL)
 	push	hl					; Offset 5: Stack pointer
 	push	iy					; Offset 4: IY
