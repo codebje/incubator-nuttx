@@ -41,8 +41,6 @@ BOARDDIR = $(TOPDIR)/arch/$(CONFIG_ARCH)/src/board
 
 # Tools
 
-CFLAGS += -nostdinc -Dinterrupt="__attribute__((__interrupt__))"
-CFLAGS += -Wno-main-return-type -Wno-incompatible-library-redeclaration -Wno-unused-parameter
 CFLAGS += ${shell $(INCDIR) "$(CC)" $(ARCH_SRCDIR)$(DELIM)chip}
 CFLAGS += ${shell $(INCDIR) "$(CC)" $(ARCH_SRCDIR)$(DELIM)common}
 CFLAGS += ${shell $(INCDIR) "$(CC)" $(TOPDIR)$(DELIM)sched}
