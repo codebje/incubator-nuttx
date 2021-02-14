@@ -85,8 +85,8 @@ _ez80_startup:
 	; On-chip SRAM resides at an offset of 000e000h from the RAM base address.
 	; REVISIT:  CONFIG_IDLETHREAD_STACKSIZE is not used!
 
-	; Because the GNU assember and linker can't translate this automatically
-	; to a single byte relocation, this instruction is hand-assembled.
+	; The GNU assembler (2.36.1) cannot produce this relocation, although the
+	; Z80 ELF format supports it. The instruction is instead hand assembled.
 	;ld		sp, __RAM_ADDR_U_INIT_PARAM << 16 + 000e400h
 	db		031h, 000h, 0e4h, __RAM_ADDR_U_INIT_PARAM
 
