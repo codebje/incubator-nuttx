@@ -164,6 +164,13 @@
 #  define DSEG
 #  define CODE
 
+/* Define these here and allow specific architectures to override as needed */
+
+#  define CONFIG_HAVE_LONG_LONG 1
+#  define CONFIG_HAVE_FLOAT 1
+#  define CONFIG_HAVE_DOUBLE 1
+#  define CONFIG_HAVE_LONG_DOUBLE 1
+
 /* Handle cases where sizeof(int) is 16-bits, sizeof(long) is 32-bits, and
  * pointers are 16-bits.
  */
@@ -271,6 +278,12 @@
 
 #  undef  CONFIG_PTR_IS_NOT_INT
 
+/* ez80-clang doesn't have these things */
+
+#  undef  CONFIG_HAVE_LONG_LONG
+#  undef  CONFIG_HAVE_DOUBLE
+#  undef  CONFIG_HAVE_LONG_DOUBLE
+
 #else
 
 /* No I-space access qualifiers */
@@ -289,6 +302,7 @@
 /* Pointers and int are the same size (32-bits) */
 
 #  undef  CONFIG_PTR_IS_NOT_INT
+
 #endif
 
 /* ISO C11 supports anonymous (unnamed) structures and unions, added in
@@ -312,11 +326,6 @@
 #    define CONFIG_HAVE_ANONYMOUS_STRUCT 1
 #    define CONFIG_HAVE_ANONYMOUS_UNION 1
 #  endif
-
-#  define CONFIG_HAVE_LONG_LONG 1
-#  define CONFIG_HAVE_FLOAT 1
-#  define CONFIG_HAVE_DOUBLE 1
-#  define CONFIG_HAVE_LONG_DOUBLE 1
 
 /* Indicate that a local variable is not used */
 
