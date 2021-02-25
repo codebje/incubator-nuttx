@@ -54,6 +54,7 @@ ARCHCPUFLAGS = -nostdinc -Dinterrupt="__attribute__((__interrupt__))"
 ARCHLIST = 
 ARCHWARNINGS = -Wall -Wextra -Wno-incompatible-library-redeclaration
 ARCHWARNINGS += -Wno-main-return-type -Wno-unused-parameter
+ARCHWARNINGS += -Wno-invalid-noreturn -Wimplicit-int-conversion
 ARCHDEFINES = -D$(ARCHCPUDEF) -D"$(ARCHFAMILY)"
 ARCHINCLUDES = $(ARCHSTDINCLUDES)
 
