@@ -278,9 +278,8 @@
 
 #  undef  CONFIG_PTR_IS_NOT_INT
 
-/* ez80-clang doesn't have these things */
+/* the ez80 stdlib doesn't support doubles */
 
-#  undef  CONFIG_HAVE_LONG_LONG
 #  undef  CONFIG_HAVE_DOUBLE
 #  undef  CONFIG_HAVE_LONG_DOUBLE
 
