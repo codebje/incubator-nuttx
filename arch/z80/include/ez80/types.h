@@ -73,13 +73,15 @@ typedef unsigned int       _uint24_t;
 typedef signed long        _int32_t;
 typedef unsigned long      _uint32_t;
 
-typedef _int32_t           _intmax_t;
-typedef _uint32_t          _uintmax_t;
-
 #ifdef __clang__
 typedef signed long long   _int64_t;
 typedef unsigned long long _uint64_t;
 #define __INT64_DEFINED
+typedef _int64_t           _intmax_t;
+typedef _uint64_t          _uintmax_t;
+#else
+typedef _int32_t           _intmax_t;
+typedef _uint32_t          _uintmax_t;
 #endif
 
 /* A pointer is 2 or 3 bytes, depending upon if the ez80 is in z80
