@@ -336,7 +336,7 @@ struct cmsghdr
  ****************************************************************************/
 
 static inline FAR struct cmsghdr *__cmsg_nxthdr(FAR void *__ctl,
-                                                unsigned int __size,
+                                                unsigned long __size,
                                                 FAR struct cmsghdr *__cmsg)
 {
   FAR struct cmsghdr *__ptr;
