@@ -48,9 +48,9 @@
 struct bchlib_s
 {
   FAR struct inode *inode; /* I-node of the block driver */
-  uint32_t sectsize;       /* The size of one sector on the device */
-  size_t nsectors;         /* Number of sectors supported by the device */
-  size_t sector;           /* The current sector in the buffer */
+  blksize_t sectsize;      /* The size of one sector on the device */
+  blkcnt_t nsectors;       /* Number of sectors supported by the device */
+  blkcnt_t sector;         /* The current sector in the buffer */
   sem_t sem;               /* For atomic accesses to this structure */
   uint8_t refs;            /* Number of references */
   bool dirty;              /* true: Data has been written to the buffer */
@@ -84,7 +84,7 @@ EXTERN const struct file_operations bch_fops;
 
 EXTERN int  bchlib_semtake(FAR struct bchlib_s *bch);
 EXTERN int  bchlib_flushsector(FAR struct bchlib_s *bch);
-EXTERN int  bchlib_readsector(FAR struct bchlib_s *bch, size_t sector);
+EXTERN int  bchlib_readsector(FAR struct bchlib_s *bch, blkcnt_t sector);
 
 #undef EXTERN
 #if defined(__cplusplus)

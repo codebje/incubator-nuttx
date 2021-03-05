@@ -49,12 +49,12 @@
  *
  ****************************************************************************/
 
-ssize_t bchlib_write(FAR void *handle, FAR const char *buffer, size_t offset,
+ssize_t bchlib_write(FAR void *handle, FAR const char *buffer, blkcnt_t offset,
         size_t len)
 {
   FAR struct bchlib_s *bch = (FAR struct bchlib_s *)handle;
   size_t   nsectors;
-  size_t   sector;
+  blkcnt_t sector;
   uint16_t sectoffset;
   size_t   nbytes;
   size_t   byteswritten;

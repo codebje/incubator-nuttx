@@ -157,7 +157,7 @@ int bchlib_flushsector(FAR struct bchlib_s *bch)
  *
  ****************************************************************************/
 
-int bchlib_readsector(FAR struct bchlib_s *bch, size_t sector)
+int bchlib_readsector(FAR struct bchlib_s *bch, blkcnt_t sector)
 {
   FAR struct inode *inode;
   ssize_t ret = OK;

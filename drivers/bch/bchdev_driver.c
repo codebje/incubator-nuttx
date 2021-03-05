@@ -223,7 +223,7 @@ static off_t bch_seek(FAR struct file *filep, off_t offset, int whence)
   FAR struct inode *inode = filep->f_inode;
   FAR struct bchlib_s *bch;
   off_t newpos;
-  int ret;
+  off_t ret;
 
   DEBUGASSERT(inode && inode->i_private);
 

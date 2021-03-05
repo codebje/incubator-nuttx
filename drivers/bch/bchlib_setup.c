@@ -107,7 +107,7 @@ int bchlib_setup(const char *blkdev, bool readonly, FAR void **handle)
   nxsem_init(&bch->sem, 0, 1);
   bch->nsectors = geo.geo_nsectors;
   bch->sectsize = geo.geo_sectorsize;
-  bch->sector   = (size_t)-1;
+  bch->sector   = (blkcnt_t)-1;
   bch->readonly = readonly;
 
   /* Allocate the sector I/O buffer */
