@@ -1329,7 +1329,7 @@ int32_t fat_extendchain(struct fat_mountpt_s *fs, uint32_t cluster)
 
 int fat_nextdirentry(struct fat_mountpt_s *fs, struct fs_fatdir_s *dir)
 {
-  unsigned int cluster;
+  off_t cluster;
   unsigned int ndx;
 
   /* Increment the index to the next 32-byte directory entry */
@@ -1428,7 +1428,7 @@ int fat_nextdirentry(struct fat_mountpt_s *fs, struct fs_fatdir_s *dir)
 
 int fat_dirtruncate(struct fat_mountpt_s *fs, FAR uint8_t *direntry)
 {
-  unsigned int startcluster;
+  uint32_t startcluster;
   uint32_t writetime;
   off_t savesector;
   int ret;
@@ -2063,10 +2063,10 @@ int fat_nfreeclusters(struct fat_mountpt_s *fs, off_t *pfreeclusters)
     }
   else
     {
-      unsigned int cluster;
-      off_t        fatsector;
-      unsigned int offset;
-      int          ret;
+      uint32_t cluster;
+      off_t    fatsector;
+      off_t    offset;
+      int      ret;
 
       fatsector    = fs->fs_fatbase;
       offset       = fs->fs_hwsectorsize;

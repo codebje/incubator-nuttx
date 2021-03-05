@@ -471,7 +471,7 @@ static ssize_t fat_read(FAR struct file *filep, FAR char *buffer,
   FAR struct fat_file_s *ff;
   unsigned int bytesread;
   unsigned int readsize;
-  size_t bytesleft;
+  off_t bytesleft;
   int32_t cluster;
   FAR uint8_t *userbuffer = (FAR uint8_t *)buffer;
   int sectorindex;

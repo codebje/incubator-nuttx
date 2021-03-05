@@ -41,7 +41,7 @@ struct partition_state_s
   FAR struct inode *blk;
   blkcnt_t nblocks;
   blksize_t blocksize;
-  size_t erasesize;
+  blksize_t erasesize;
 };
 
 #endif /* CONFIG_DISABLE_MOUNTPOINT */
