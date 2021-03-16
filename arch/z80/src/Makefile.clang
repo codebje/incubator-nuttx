@@ -96,10 +96,10 @@ libarch$(LIBEXT): $(OBJS)
 board$(DELIM)libboard$(LIBEXT):
 	$(Q) $(MAKE) -C board libboard$(LIBEXT) EXTRAFLAGS="$(EXTRAFLAGS)"
 
-LIBPATHS := -L"$(TOPDIR)$(DELIM)staging"
+LIBPATHS += -L"$(TOPDIR)$(DELIM)staging"
 LIBPATHS += -L"$(TOPDIR)$(DELIM)arch$(DELIM)$(CONFIG_ARCH)$(DELIM)src$(DELIM)board"
 
-LDLIBS = $(patsubst %.a,%,$(patsubst lib%,-l%,$(LINKLIBS))) -lboard
+LDLIBS += $(patsubst %.a,%,$(patsubst lib%,-l%,$(LINKLIBS))) -lboard
 
 NUTTX = "$(TOPDIR)$(DELIM)nuttx$(EXEEXT)"
 
