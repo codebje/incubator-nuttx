@@ -65,8 +65,8 @@ struct ez80_i2cdev_s
 
 /* Misc. Helpers */
 
-static void     ez80_i2c_setccr(uint16_t ccr);
-static uint16_t ez80_i2c_getccr(uint32_t frequency);
+static void     ez80_i2c_setccr(uint8_t ccr);
+static uint8_t  ez80_i2c_getccr(uint32_t frequency);
 static uint8_t  ez80_i2c_waitiflg(void);
 static void     ez80_i2c_clriflg(void);
 static void     ez80_i2c_start(void);
@@ -102,25 +102,6 @@ const struct i2c_ops_s g_ops =
  ****************************************************************************/
 
 /****************************************************************************
- * Name: ez80_i2c_semtake/ez80_i2c_semgive
- *
- * Description:
- *   Take/Give the I2C semaphore.
- *
- * Input Parameters:
- *   None
- *
- * Returned Value:
- *   None
- *
- ****************************************************************************/
-
-static int ez80_i2c_semtake(void)
-{
-  return nxsem_wait(&g_i2csem);
-}
-
-/****************************************************************************
  * Name: ez80_i2c_setccr
  *
  * Description:
@@ -134,7 +115,7 @@ static int ez80_i2c_semtake(void)
  *
  ****************************************************************************/
 
-static void ez80_i2c_setccr(uint16_t ccr)
+static void ez80_i2c_setccr(uint8_t ccr)
 {
   outp(EZ80_I2C_CCR, ccr);
 }
@@ -149,11 +130,11 @@ static void ez80_i2c_setccr(uint16_t ccr)
  *   fscl - The I2C frequency requested
  *
  * Returned Value:
- *   Returns the actual frequency selected
+ *   Returns the BRG to set in the CCR
  *
  ****************************************************************************/
 
-static uint16_t ez80_i2c_getccr(uint32_t fscl)
+static uint8_t ez80_i2c_getccr(uint32_t fscl)
 {
   uint32_t fsamp;
   uint32_t ftmp;
@@ -169,7 +150,7 @@ static uint16_t ez80_i2c_getccr(uint32_t fscl)
    *   fscl = sysclock / 10 / (M + 1) / 2**N
    *        = fsamp / 10 / (M + 1)
    *
-   * The fsmp must be >= 10 * fscl.  The best solution is the smallest value
+   * The fsamp must be >= 10 * fscl.  The best solution is the smallest value
    * of N so that the sampling rate is the highest subject to:
    *
    * The minimum value of the fsamp is given by:
@@ -767,7 +748,7 @@ static int ez80_i2c_write_transfer(FAR struct ez80_i2cdev_s *priv,
 static void ez80_i2c_setfrequency(FAR struct ez80_i2cdev_s *priv,
                                   uint32_t frequency)
 {
-  uint16_t ccr;
+  uint8_t ccr;
 
   if (priv->frequency != frequency)
     {
@@ -917,8 +898,8 @@ static int ez80_i2c_transfer(FAR struct i2c_master_s *dev,
 FAR struct i2c_master_s *ez80_i2cbus_initialize(int port)
 {
   FAR struct ez80_i2cdev_s *i2c;
-  uint16_t ccr;
-  uint8_t  regval;
+  uint8_t ccr;
+  uint8_t regval;
 
   if (!g_initialized)
     {

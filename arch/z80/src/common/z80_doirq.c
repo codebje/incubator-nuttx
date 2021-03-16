@@ -92,7 +92,7 @@ FAR chipreg_t *z80_doirq(uint8_t irq, FAR chipreg_t *regs)
 #else
       /* If a context switch occurred, 'regs' will hold the new context */
 
-      regs = IRQ_STATE();
+      regs = (chipreg_t *)IRQ_STATE();
 #endif
 
       /* Indicate that we are no longer in interrupt processing logic */
