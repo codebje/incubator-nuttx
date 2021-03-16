@@ -41,6 +41,62 @@
  * Inline functions
  ****************************************************************************/
 
+#ifndef __ASSEMBLY__
+
+#ifdef __clang__
+
+static inline uintptr_t sys_call0(unsigned int nbr)
+{
+  return 0;
+}
+
+static inline uintptr_t sys_call1(unsigned int nbr, uintptr_t param1)
+{
+  return 0;
+}
+
+static inline uintptr_t sys_call2(unsigned int nbr, uintptr_t param1,
+                                  uintptr_t param2)
+{
+  return 0;
+}
+
+static inline uintptr_t sys_call3(unsigned int nbr, uintptr_t param1,
+                                  uintptr_t param2, uintptr_t param3)
+{
+  return 0;
+}
+
+static inline uintptr_t sys_call4(unsigned int nbr, uintptr_t param1,
+                                  uintptr_t param2, uintptr_t param3,
+                                  uintptr_t param4)
+{
+  return 0;
+}
+
+static inline uintptr_t sys_call5(unsigned int nbr, uintptr_t param1,
+                                  uintptr_t param2, uintptr_t param3,
+                                  uintptr_t param4, uintptr_t param5)
+{
+  return 0;
+}
+
+static inline uintptr_t sys_call6(unsigned int nbr, uintptr_t param1,
+                                  uintptr_t param2, uintptr_t param3,
+                                  uintptr_t param4, uintptr_t param5,
+                                  uintptr_t param6)
+{
+  return 0;
+}
+
+#else
+
+#error "The syscall service is not supported using ZDS-II"
+
+#endif
+
+#endif /* __ASSEMBLY__ */
+
 /****************************************************************************
  * Public Data
  ****************************************************************************/
