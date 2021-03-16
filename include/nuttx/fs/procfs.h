@@ -27,6 +27,7 @@
 
 #include <nuttx/config.h>
 #include <nuttx/fs/fs.h>
+#include <malloc.h>
 
 /****************************************************************************
  * Pre-processor Definitions
