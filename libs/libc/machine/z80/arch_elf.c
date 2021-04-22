@@ -44,11 +44,6 @@
  * Private Functions
  ****************************************************************************/
 
-static bool is_l32r(FAR const unsigned char *p)
-{
-  return (p[0] & 0xf) == 1;
-}
-
 /****************************************************************************
  * Public Functions
  ****************************************************************************/
@@ -113,7 +108,7 @@ bool up_checkarch(FAR const Elf32_Ehdr *ehdr)
 #error Chip architecture is not supported
 #endif
     {
-      berr("ERROR: Wrong machine architecture: e_flags=%02x\n",
+      berr("ERROR: Wrong machine architecture: e_flags=%02" PRIx32 "\n",
            ehdr->e_flags);
       return false;
     }
@@ -180,7 +175,6 @@ int up_relocateadd(FAR const Elf32_Rela *rel, FAR const Elf32_Sym *sym,
                    uintptr_t addr)
 {
   unsigned int relotype;
-  unsigned char *p;
   uint32_t value;
 
   /* All relocations except NONE depend upon having valid symbol
@@ -208,14 +202,8 @@ int up_relocateadd(FAR const Elf32_Rela *rel, FAR const Elf32_Sym *sym,
       break;
 
     case R_Z80_24:
-      (*(FAR uint24_t *)addr) += value;
+      (*(FAR uint24_t *)addr) = (uint24_t)value;
       break;
-
-    /* While there are many more relocation types for Z80 ELF objects,
-     * binutils does not support position independent executables or
-     * shared libraries on this architecture. I don't know how else to
-     * get relocation entries into an executable...
-     */
 
     default:
       berr("ERROR: RELA relocation %u not supported\n", relotype);
